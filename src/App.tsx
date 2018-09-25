@@ -1,14 +1,24 @@
 import * as React from "react";
+import { Board } from "components/Board";
 import "./App.css";
 
 class App extends React.Component {
   public render() {
+    const gameState = [
+      ["none", "none", "none", "none", "none", "none", "none"],
+      ["none", "none", "none", "none", "none", "none", "none"],
+      ["none", "none", "yellow", "red", "none", "none", "none"],
+      ["none", "none", "red", "yellow", "none", "none", "none"],
+      ["red", "yellow", "yellow", "yellow", "red", "red", "yellow"],
+      ["red", "red", "yellow", "yellow", "red", "yellow", "red"],
+    ];
+
     return (
-      <div className="App">
-        <header className="App-header">
+      <div>
+        <header>
           <h1 className="App-title">Welcome to Connect Four</h1>
         </header>
-        <p className="App-intro">This is where gameplay will go.</p>
+        <Board gameState={gameState} />
       </div>
     );
   }
