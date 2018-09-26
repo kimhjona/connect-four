@@ -1,10 +1,12 @@
 import * as React from "react";
 import { connect } from "react-redux";
+import { clear } from "redux/actions";
 import { Board } from "components/Board";
 import "./App.css";
-import { StoreState } from "redux/reducer";
+import { StoreState } from "redux/types";
 
 interface AppProps {
+  clear: typeof clear;
   message: string;
   row0: string[];
   row1: string[];
@@ -16,7 +18,7 @@ interface AppProps {
 
 class App extends React.Component<AppProps> {
   render() {
-    const { message, row0, row1, row2, row3, row4, row5 } = this.props;
+    const { clear, message, row0, row1, row2, row3, row4, row5 } = this.props;
 
     return (
       <div>
@@ -24,6 +26,9 @@ class App extends React.Component<AppProps> {
           <h1 className="App-title">Welcome to Connect Four</h1>
           <h2 className="message">{message}</h2>
         </header>
+        <div className="menu">
+          <button onClick={clear}>Clear</button>
+        </div>
         <Board
           row0={row0}
           row1={row1}
@@ -50,6 +55,6 @@ const mapStateToProps = (state: StoreState) => ({
 export const AppWrapped = connect(
   mapStateToProps,
   {
-    // actions
+    clear,
   }
 )(App);

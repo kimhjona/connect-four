@@ -1,36 +1,33 @@
-import { ActionParams, ADD_PIECE, CLEAR } from "./types";
 import {
+  ActionParams,
+  ADD_PIECE,
+  CLEAR,
+  StoreState,
+  SWITCH_STARTING_TURN,
+} from "./types";
+import {
+  // checkWins,
   findMostBottomRowIndex,
   newInstanceOfArrayWithPieceAdded,
+  toggleTurn,
 } from "functions";
 
 const initialState: StoreState = {
   message: "",
   row0: ["none", "none", "none", "none", "none", "none", "none"],
   row1: ["none", "none", "none", "none", "none", "none", "none"],
-  row2: ["none", "none", "yellow", "red", "none", "none", "none"],
-  row3: ["none", "none", "red", "yellow", "none", "none", "none"],
-  row4: ["red", "yellow", "yellow", "yellow", "red", "red", "yellow"],
-  row5: ["red", "red", "yellow", "yellow", "red", "yellow", "red"],
+  row2: ["none", "none", "none", "none", "none", "none", "none"],
+  row3: ["none", "none", "none", "none", "none", "none", "none"],
+  row4: ["none", "none", "none", "none", "none", "none", "none"],
+  row5: ["none", "none", "none", "none", "none", "none", "none"],
   turn: "red",
 };
-
-export interface StoreState {
-  message: string;
-  row0: string[];
-  row1: string[];
-  row2: string[];
-  row3: string[];
-  row4: string[];
-  row5: string[];
-  turn: string;
-}
 
 export const reducer = (state = initialState, action: ActionParams) => {
   switch (action.type) {
     case CLEAR: {
       return {
-        initialState,
+        ...initialState,
         message: "Cleared!",
       };
     }
@@ -49,15 +46,29 @@ export const reducer = (state = initialState, action: ActionParams) => {
         columnNumber
       );
 
-      console.log(
-        newInstanceOfArrayWithPieceAdded(
-          state[`row${rowNumbertoAddPieceTo}`],
-          columnNumber,
-          state.turn
-        )
-      );
+      if (rowNumbertoAddPieceTo === -1) {
+        return { ...state, message: "That won't work!" };
+      }
 
-      return state;
+      const newRow = newInstanceOfArrayWithPieceAdded(
+        state[`row${rowNumbertoAddPieceTo}`],
+        columnNumber,
+        state.turn
+      );
+      const turn = toggleTurn(state.turn);
+      // const isThereAWinner = checkWins(entireGameState);
+
+      // console.log(isThereAWinner);
+
+      return {
+        ...state,
+        [`row${rowNumbertoAddPieceTo}`]: newRow,
+        message: "",
+        turn,
+      };
+    }
+    case SWITCH_STARTING_TURN: {
+      return { ...state, turn: toggleTurn(state.turn) };
     }
     default:
       return state;

@@ -1,6 +1,6 @@
 import * as React from "react";
 import { connect } from "react-redux";
-import { StoreState } from "redux/reducer";
+import { StoreState } from "redux/types";
 import { addPiece } from "redux/actions";
 
 interface PieceProps {

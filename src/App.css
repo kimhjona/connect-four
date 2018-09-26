@@ -1,5 +1,6 @@
 body {
   font-size: 10px;
+  font-family: "Istok Web";
 }
 
 header {
@@ -17,6 +18,23 @@ header {
   max-width: 35rem;
   margin: 2.5rem auto;
   background: lightblue;
+}
+
+.menu {
+  display: grid;
+  justify-content: center;
+}
+
+button {
+  background-color: yellow;
+  width: 10rem;
+  height: 4rem;
+  cursor: pointer;
+  font-size: 3rem;
+}
+
+*:focus {
+  outline: none;
 }
 
 .disc {
