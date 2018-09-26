@@ -1,27 +1,55 @@
 import * as React from "react";
+import { connect } from "react-redux";
 import { Board } from "components/Board";
 import "./App.css";
+import { StoreState } from "redux/reducer";
 
-class App extends React.Component {
-  public render() {
-    const gameState = [
-      ["none", "none", "none", "none", "none", "none", "none"],
-      ["none", "none", "none", "none", "none", "none", "none"],
-      ["none", "none", "yellow", "red", "none", "none", "none"],
-      ["none", "none", "red", "yellow", "none", "none", "none"],
-      ["red", "yellow", "yellow", "yellow", "red", "red", "yellow"],
-      ["red", "red", "yellow", "yellow", "red", "yellow", "red"],
-    ];
+interface AppProps {
+  message: string;
+  row0: string[];
+  row1: string[];
+  row2: string[];
+  row3: string[];
+  row4: string[];
+  row5: string[];
+}
+
+class App extends React.Component<AppProps> {
+  render() {
+    const { message, row0, row1, row2, row3, row4, row5 } = this.props;
 
     return (
       <div>
         <header>
           <h1 className="App-title">Welcome to Connect Four</h1>
+          <h2 className="message">{message}</h2>
         </header>
-        <Board gameState={gameState} />
+        <Board
+          row0={row0}
+          row1={row1}
+          row2={row2}
+          row3={row3}
+          row4={row4}
+          row5={row5}
+        />
       </div>
     );
   }
 }
 
-export default App;
+const mapStateToProps = (state: StoreState) => ({
+  message: state.message,
+  row0: state.row0,
+  row1: state.row1,
+  row2: state.row2,
+  row3: state.row3,
+  row4: state.row4,
+  row5: state.row5,
+});
+
+export const AppWrapped = connect(
+  mapStateToProps,
+  {
+    // actions
+  }
+)(App);

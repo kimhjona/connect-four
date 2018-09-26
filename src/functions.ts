@@ -1,34 +1,20 @@
-// const game_state = [
-//   ["None", "None", "None", "None", "None", "None", "None"],
-//   ["None", "None", "None", "None", "None", "None", "None"],
-//   ["None", "None", "y", "r", "None", "None", "None"],
-//   ["None", "None", "r", "y", "None", "None", "None"],
-//   ["r", "y", "y", "y", "r", "r", "y"],
-//   ["r", "r", "y", "y", "r", "y", "r"],
-// ];
+export const findMostBottomRowIndex = (
+  gameState: string[][],
+  columnNumber: number
+) => {
+  const arrayOfColumnValues = gameState.map(row => row[columnNumber]);
 
-// export const get_current_player = (game_state: Object[]) => {};
+  return arrayOfColumnValues.lastIndexOf("none");
+};
 
-// const numberOfDicsInTotal = (array, specifiedValue) => {
+export const newInstanceOfArrayWithPieceAdded = (
+  rowArray: string[],
+  column: number,
+  turn: string
+) => {
+  console.log("rowArray", rowArray);
+  console.log("column", column);
+  console.log("turn", turn);
 
-// }
-
-// const number_of_instances_in_an_array = (
-//   array: any,
-//   specifiedValue: string
-// ) => {
-//   array.reduce(
-//     (
-//       accumulator: number,
-//       currentValue: number,
-//       currentIndex: number,
-//       array: Object[]
-//     ) => {
-//       if (array[currentIndex] === specifiedValue) {
-//         return accumulator + currentValue;
-//       }
-
-//       return accumulator;
-//     }
-//   );
-// };
+  return [...rowArray.slice(0, column), turn, ...rowArray.slice(column + 1)];
+};

@@ -24,6 +24,7 @@ header {
   height: 4rem;
   width: 4rem;
   margin: 0.4rem;
+  cursor: pointer;
 }
 
 .none {
@@ -36,4 +37,27 @@ header {
 
 .yellow {
   background: yellow;
+}
+
+.message {
+  color: red;
+  height: 25px;
+}
+
+@media (max-width: 35rem) {
+  h1 {
+    font-size: 0.8rem;
+  }
+
+  .board {
+    margin: 1rem auto;
+  }
+
+  .disc {
+    border-radius: 50%;
+    height: 1.6rem;
+    width: 1.6rem;
+    margin: 0.2rem;
+    cursor: pointer;
+  }
 }
