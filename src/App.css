@@ -17,16 +17,29 @@ header {
   display: grid;
   max-width: 35rem;
   margin: 2.5rem auto;
-  background: lightblue;
+  background: #0098ff;
 }
 
 .menu {
-  display: grid;
+  display: flex;
+  -ms-flex-pack: center;
   justify-content: center;
+  text-align: center;
+  flex-direction: row;
+  align-items: center;
+}
+
+.menu > * {
+  padding-left: 1rem;
+  padding-right: 1rem;
+}
+
+.menu .disc {
+  margin: 0 auto;
 }
 
 button {
-  background-color: yellow;
+  background-color: #fffe95;
   width: 10rem;
   height: 4rem;
   cursor: pointer;
@@ -43,6 +56,7 @@ button {
   width: 4rem;
   margin: 0.4rem;
   cursor: pointer;
+  border: 0.5px solid;
 }
 
 .none {
@@ -50,21 +64,25 @@ button {
 }
 
 .red {
-  background: red;
+  background: #cc4948;
 }
 
 .yellow {
-  background: yellow;
+  background: #fffe95;
 }
 
 .message {
-  color: red;
+  color: #cc4948;
   height: 25px;
 }
 
 @media (max-width: 35rem) {
   h1 {
     font-size: 0.8rem;
+  }
+
+  .menu {
+    flex-direction: column;
   }
 
   .board {

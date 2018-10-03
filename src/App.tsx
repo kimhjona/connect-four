@@ -7,18 +7,21 @@ import { StoreState } from "redux/types";
 
 interface AppProps {
   clear: typeof clear;
+  gameState: string[][];
   message: string;
-  row0: string[];
-  row1: string[];
-  row2: string[];
-  row3: string[];
-  row4: string[];
-  row5: string[];
+  preventFurtherGamePlay: boolean;
+  turn: string;
 }
 
 class App extends React.Component<AppProps> {
   render() {
-    const { clear, message, row0, row1, row2, row3, row4, row5 } = this.props;
+    const {
+      clear,
+      message,
+      gameState,
+      preventFurtherGamePlay,
+      turn,
+    } = this.props;
 
     return (
       <div>
@@ -28,28 +31,24 @@ class App extends React.Component<AppProps> {
         </header>
         <div className="menu">
           <button onClick={clear}>Clear</button>
+          {!preventFurtherGamePlay && (
+            <div>
+              <h2>Next Move:</h2>
+              <div className={"disc " + turn} />
+            </div>
+          )}
         </div>
-        <Board
-          row0={row0}
-          row1={row1}
-          row2={row2}
-          row3={row3}
-          row4={row4}
-          row5={row5}
-        />
+        <Board gameState={gameState} />
       </div>
     );
   }
 }
 
 const mapStateToProps = (state: StoreState) => ({
+  gameState: state.gameState,
   message: state.message,
-  row0: state.row0,
-  row1: state.row1,
-  row2: state.row2,
-  row3: state.row3,
-  row4: state.row4,
-  row5: state.row5,
+  preventFurtherGamePlay: state.preventFurtherGamePlay,
+  turn: state.turn,
 });
 
 export const AppWrapped = connect(

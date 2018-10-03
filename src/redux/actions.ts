@@ -1,6 +1,11 @@
 // tslint:disable:object-literal-sort-keys
 
-import { ADD_PIECE, CLEAR, SWITCH_STARTING_TURN } from "./types";
+import {
+  ADD_PIECE,
+  CLEAR,
+  PREVENT_FURTHER_GAMEPLAY,
+  SWITCH_STARTING_TURN,
+} from "./types";
 
 export const clear = () => ({ type: CLEAR });
 
@@ -10,3 +15,7 @@ export const addPiece = (columnNumber: number) => ({
 });
 
 export const switchStartingTurn = () => ({ type: SWITCH_STARTING_TURN });
+
+export const preventFurtherGamePlay = () => ({
+  type: PREVENT_FURTHER_GAMEPLAY,
+});

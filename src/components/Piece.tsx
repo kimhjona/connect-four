@@ -7,12 +7,15 @@ interface PieceProps {
   addPiece: typeof addPiece;
   gamePiece: string;
   columnNumber: number;
+  preventFurtherGamePlay: boolean;
 }
 
 class Piece extends React.Component<PieceProps> {
   onClick = (e: React.MouseEvent<HTMLDivElement>) => {
-    const { addPiece, columnNumber } = this.props;
-    addPiece(columnNumber);
+    const { addPiece, columnNumber, preventFurtherGamePlay } = this.props;
+    if (!preventFurtherGamePlay) {
+      addPiece(columnNumber);
+    }
   };
 
   render() {
@@ -26,7 +29,9 @@ class Piece extends React.Component<PieceProps> {
   }
 }
 
-const mapStateToProps = (state: StoreState) => ({});
+const mapStateToProps = (state: StoreState) => ({
+  preventFurtherGamePlay: state.preventFurtherGamePlay,
+});
 
 export const PieceWrapped = connect(
   mapStateToProps,

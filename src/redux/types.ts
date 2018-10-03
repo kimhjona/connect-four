@@ -1,10 +1,12 @@
 export const CLEAR = "CLEAR";
 export const ADD_PIECE = "ADD_PIECE";
 export const SWITCH_STARTING_TURN = "SWITCH_STARTING_TURN";
+export const PREVENT_FURTHER_GAMEPLAY = "PREVENT_FURTHER_GAMEPLAY";
 
 type ActionTypes =
   | typeof ADD_PIECE
   | typeof CLEAR
+  | typeof PREVENT_FURTHER_GAMEPLAY
   | typeof SWITCH_STARTING_TURN;
 
 export interface ActionParams {
@@ -15,11 +17,7 @@ export interface ActionParams {
 
 export interface StoreState {
   message: string;
-  row0: string[];
-  row1: string[];
-  row2: string[];
-  row3: string[];
-  row4: string[];
-  row5: string[];
+  gameState: string[][];
+  preventFurtherGamePlay: boolean;
   turn: string;
 }

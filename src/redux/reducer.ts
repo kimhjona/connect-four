@@ -6,21 +6,24 @@ import {
   SWITCH_STARTING_TURN,
 } from "./types";
 import {
-  // checkWins,
+  checkWins,
   findMostBottomRowIndex,
   newInstanceOfArrayWithPieceAdded,
   toggleTurn,
 } from "functions";
 
 const initialState: StoreState = {
+  gameState: [
+    ["none", "none", "none", "none", "none", "none", "none"],
+    ["none", "none", "none", "none", "none", "none", "none"],
+    ["none", "none", "none", "none", "none", "none", "none"],
+    ["none", "none", "none", "none", "none", "none", "none"],
+    ["none", "none", "none", "none", "none", "none", "none"],
+    ["none", "none", "none", "none", "none", "none", "none"],
+  ],
   message: "",
-  row0: ["none", "none", "none", "none", "none", "none", "none"],
-  row1: ["none", "none", "none", "none", "none", "none", "none"],
-  row2: ["none", "none", "none", "none", "none", "none", "none"],
-  row3: ["none", "none", "none", "none", "none", "none", "none"],
-  row4: ["none", "none", "none", "none", "none", "none", "none"],
-  row5: ["none", "none", "none", "none", "none", "none", "none"],
-  turn: "red",
+  preventFurtherGamePlay: false,
+  turn: "yellow",
 };
 
 export const reducer = (state = initialState, action: ActionParams) => {
@@ -33,16 +36,8 @@ export const reducer = (state = initialState, action: ActionParams) => {
     }
     case ADD_PIECE: {
       const { columnNumber } = action;
-      const entireGameState = [
-        state.row0,
-        state.row1,
-        state.row2,
-        state.row3,
-        state.row4,
-        state.row5,
-      ];
       const rowNumbertoAddPieceTo = findMostBottomRowIndex(
-        entireGameState,
+        state.gameState,
         columnNumber
       );
 
@@ -51,20 +46,34 @@ export const reducer = (state = initialState, action: ActionParams) => {
       }
 
       const newRow = newInstanceOfArrayWithPieceAdded(
-        state[`row${rowNumbertoAddPieceTo}`],
+        state.gameState[rowNumbertoAddPieceTo],
         columnNumber,
         state.turn
       );
-      const turn = toggleTurn(state.turn);
-      // const isThereAWinner = checkWins(entireGameState);
 
-      // console.log(isThereAWinner);
+      const newArray = state.gameState.map((row: string[]) => row.slice());
+      newArray[rowNumbertoAddPieceTo] = newRow;
+
+      const isThereAWinner = checkWins(
+        newArray,
+        rowNumbertoAddPieceTo,
+        columnNumber
+      );
+
+      if (isThereAWinner.isThereAWinner) {
+        return {
+          ...state,
+          gameState: newArray,
+          message: `Congrats to ${isThereAWinner.winner}!`,
+          preventFurtherGamePlay: true,
+        };
+      }
 
       return {
         ...state,
-        [`row${rowNumbertoAddPieceTo}`]: newRow,
+        gameState: newArray,
         message: "",
-        turn,
+        turn: toggleTurn(state.turn),
       };
     }
     case SWITCH_STARTING_TURN: {
