@@ -1,96 +1,3 @@
-export const findMostBottomRowIndex = (
-  gameState: string[][],
-  columnNumber: number
-) => {
-  const arrayOfColumnValues = getArrayOfColumns(gameState, columnNumber);
-
-  return arrayOfColumnValues.lastIndexOf("none");
-};
-
-export const newInstanceOfArrayWithPieceAdded = (
-  rowArray: string[],
-  column: number,
-  turn: string
-) => {
-  return [...rowArray.slice(0, column), turn, ...rowArray.slice(column + 1)];
-};
-
-export const toggleTurn = (previousTurn: string) => {
-  return previousTurn === "red" ? "yellow" : "red";
-};
-
-export const checkWins = (
-  entireGameState: string[][],
-  rowNumber: number,
-  columnNumber: number
-) => {
-  const columnArray = getArrayOfColumns(entireGameState, columnNumber);
-  const bottomLeftToTopRightDiagonal = getBottomLeftToTopRightDiagonal(
-    entireGameState,
-    rowNumber,
-    columnNumber
-  );
-  const topLeftToBottomRightDiagonal = getTopLeftToBottomRightDiagonal(
-    entireGameState,
-    rowNumber,
-    columnNumber
-  );
-
-  const rowWinRed = checksForConsecutivePieces(
-    entireGameState[rowNumber],
-    "red",
-    4
-  );
-  const columnWinRed = checksForConsecutivePieces(columnArray, "red", 4);
-  const bottomLeftToTopRightDiagonalWinRed = checksForConsecutivePieces(
-    bottomLeftToTopRightDiagonal,
-    "red",
-    4
-  );
-  const topLeftToBottomRightDiagonalRwinRed = checksForConsecutivePieces(
-    topLeftToBottomRightDiagonal,
-    "red",
-    4
-  );
-
-  if (
-    rowWinRed ||
-    columnWinRed ||
-    bottomLeftToTopRightDiagonalWinRed ||
-    topLeftToBottomRightDiagonalRwinRed
-  ) {
-    return { isThereAWinner: true, winner: "red" };
-  }
-
-  const rowWinYellow = checksForConsecutivePieces(
-    entireGameState[rowNumber],
-    "yellow",
-    4
-  );
-  const columnWinYellow = checksForConsecutivePieces(columnArray, "yellow", 4);
-  const bottomLeftToTopRightDiagonalWinYellow = checksForConsecutivePieces(
-    bottomLeftToTopRightDiagonal,
-    "yellow",
-    4
-  );
-  const topLeftToBottomRightDiagonalRwinYellow = checksForConsecutivePieces(
-    topLeftToBottomRightDiagonal,
-    "yellow",
-    4
-  );
-
-  if (
-    rowWinYellow ||
-    columnWinYellow ||
-    bottomLeftToTopRightDiagonalWinYellow ||
-    topLeftToBottomRightDiagonalRwinYellow
-  ) {
-    return { isThereAWinner: true, winner: "yellow" };
-  }
-
-  return { isThereAWinner: false, winner: "" };
-};
-
 const getArrayOfColumns = (entireGameState: string[][], columnNumber: number) =>
   entireGameState.map(row => row[columnNumber]);
 
@@ -171,3 +78,94 @@ const checksForConsecutivePieces = (
     },
     0
   ) === true;
+export const findMostBottomRowIndex = (
+  gameState: string[][],
+  columnNumber: number
+) => {
+  const arrayOfColumnValues = getArrayOfColumns(gameState, columnNumber);
+
+  return arrayOfColumnValues.lastIndexOf("none");
+};
+
+export const newInstanceOfArrayWithPieceAdded = (
+  rowArray: string[],
+  column: number,
+  turn: string
+) => {
+  return [...rowArray.slice(0, column), turn, ...rowArray.slice(column + 1)];
+};
+
+export const toggleTurn = (previousTurn: string) => {
+  return previousTurn === "red" ? "yellow" : "red";
+};
+
+export const checkWins = (
+  entireGameState: string[][],
+  rowNumber: number,
+  columnNumber: number
+) => {
+  const columnArray = getArrayOfColumns(entireGameState, columnNumber);
+  const bottomLeftToTopRightDiagonal = getBottomLeftToTopRightDiagonal(
+    entireGameState,
+    rowNumber,
+    columnNumber
+  );
+  const topLeftToBottomRightDiagonal = getTopLeftToBottomRightDiagonal(
+    entireGameState,
+    rowNumber,
+    columnNumber
+  );
+  const rowWinRed = checksForConsecutivePieces(
+    entireGameState[rowNumber],
+    "red",
+    4
+  );
+  const columnWinRed = checksForConsecutivePieces(columnArray, "red", 4);
+  const bottomLeftToTopRightDiagonalWinRed = checksForConsecutivePieces(
+    bottomLeftToTopRightDiagonal,
+    "red",
+    4
+  );
+  const topLeftToBottomRightDiagonalRwinRed = checksForConsecutivePieces(
+    topLeftToBottomRightDiagonal,
+    "red",
+    4
+  );
+
+  if (
+    rowWinRed ||
+    columnWinRed ||
+    bottomLeftToTopRightDiagonalWinRed ||
+    topLeftToBottomRightDiagonalRwinRed
+  ) {
+    return { isThereAWinner: true, winner: "red" };
+  }
+
+  const rowWinYellow = checksForConsecutivePieces(
+    entireGameState[rowNumber],
+    "yellow",
+    4
+  );
+  const columnWinYellow = checksForConsecutivePieces(columnArray, "yellow", 4);
+  const bottomLeftToTopRightDiagonalWinYellow = checksForConsecutivePieces(
+    bottomLeftToTopRightDiagonal,
+    "yellow",
+    4
+  );
+  const topLeftToBottomRightDiagonalRwinYellow = checksForConsecutivePieces(
+    topLeftToBottomRightDiagonal,
+    "yellow",
+    4
+  );
+
+  if (
+    rowWinYellow ||
+    columnWinYellow ||
+    bottomLeftToTopRightDiagonalWinYellow ||
+    topLeftToBottomRightDiagonalRwinYellow
+  ) {
+    return { isThereAWinner: true, winner: "yellow" };
+  }
+
+  return { isThereAWinner: false, winner: "" };
+};
