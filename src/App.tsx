@@ -34,7 +34,7 @@ class App extends React.Component<AppProps> {
           {!preventFurtherGamePlay && (
             <div>
               <h2>Next Move:</h2>
-              <div className={"disc " + turn} />
+              <div className={`disc ${turn}`} />
             </div>
           )}
         </div>

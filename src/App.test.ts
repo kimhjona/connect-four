@@ -1,4 +1,4 @@
-import { get_current_player, is_state_valid } from "./helperTestFunctions";
+import { getCurrentPlayer, isStateValid } from "./helperTestFunctions";
 
 it("who's turn is it?", () => {
   const gameState = [
@@ -10,7 +10,7 @@ it("who's turn is it?", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "none", "none", "none"],
   ];
-  expect(get_current_player(gameState)).toBe("yellow");
+  expect(getCurrentPlayer(gameState)).toBe("yellow");
 });
 
 it("who's turn is it? 2", () => {
@@ -23,7 +23,7 @@ it("who's turn is it? 2", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "none", "none", "yellow"],
   ];
-  expect(get_current_player(gameState)).toBe("red");
+  expect(getCurrentPlayer(gameState)).toBe("red");
 });
 
 it("is state valid?", () => {
@@ -36,10 +36,10 @@ it("is state valid?", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "none", "none", "yellow"],
   ];
-  expect(is_state_valid(gameState)).toBe(true);
+  expect(isStateValid(gameState)).toBe(true);
 });
 
-it("is state valid? 2", () => {
+it("is state valid? with random floating red piece", () => {
   const gameState = [
     ["none", "none", "none", "none", "none", "yellow"],
     ["none", "none", "none", "none", "none", "red"],
@@ -49,10 +49,10 @@ it("is state valid? 2", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "none", "none", "yellow"],
   ];
-  expect(is_state_valid(gameState)).toBe(false);
+  expect(isStateValid(gameState)).toBe(false);
 });
 
-it("is state valid? 3", () => {
+it("is state valid? valid columns but too many reds", () => {
   const gameState = [
     ["none", "none", "none", "none", "none", "yellow"],
     ["none", "none", "none", "none", "none", "red"],
@@ -62,10 +62,10 @@ it("is state valid? 3", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "red", "red", "yellow"],
   ];
-  expect(is_state_valid(gameState)).toBe(false);
+  expect(isStateValid(gameState)).toBe(false);
 });
 
-it("is state valid? 2", () => {
+it("is state valid? another floating red piece", () => {
   const gameState = [
     ["none", "none", "none", "none", "none", "yellow"],
     ["none", "none", "none", "none", "none", "red"],
@@ -75,10 +75,10 @@ it("is state valid? 2", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "red", "none", "yellow"],
   ];
-  expect(is_state_valid(gameState)).toBe(false);
+  expect(isStateValid(gameState)).toBe(false);
 });
 
-it("is state valid? 2", () => {
+it("is state valid? valid state", () => {
   const gameState = [
     ["none", "none", "none", "none", "red", "yellow"],
     ["none", "none", "none", "red", "yellow", "red"],
@@ -88,5 +88,5 @@ it("is state valid? 2", () => {
     ["none", "none", "none", "none", "none", "red"],
     ["none", "none", "none", "none", "none", "yellow"],
   ];
-  expect(is_state_valid(gameState)).toBe(true);
+  expect(isStateValid(gameState)).toBe(true);
 });

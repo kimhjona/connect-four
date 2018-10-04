@@ -23,7 +23,7 @@ class Piece extends React.Component<PieceProps> {
 
     return (
       <>
-        <div className={`${"disc " + gamePiece}`} onClick={this.onClick} />
+        <div className={`disc ${gamePiece}`} onClick={this.onClick} />
       </>
     );
   }

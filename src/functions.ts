@@ -58,26 +58,38 @@ const checksForConsecutivePieces = (
   arrayToCheck: string[],
   winningValue: string,
   winningNumber: number
-) =>
-  arrayToCheck.reduce(
-    // tslint:disable-next-line:no-any
-    (isThereAMatchYet: any, currentPiece: string, currentIndex: number) => {
+) => {
+  const checksForWin = arrayToCheck.reduce(
+    (
+      isThereAMatchYet: { currentCount: number; isThereAWinYet: boolean },
+      currentPiece: string
+    ) => {
       if (
-        isThereAMatchYet === winningNumber ||
-        isThereAMatchYet === true ||
+        isThereAMatchYet.currentCount === winningNumber ||
+        isThereAMatchYet.isThereAWinYet === true ||
         (currentPiece === winningValue &&
-          isThereAMatchYet + 1 === winningNumber)
+          isThereAMatchYet.currentCount + 1 === winningNumber)
       ) {
-        return true;
+        return {
+          currentCount: isThereAMatchYet.currentCount + 1,
+          isThereAWinYet: true,
+        };
       }
       if (currentPiece === winningValue) {
-        return isThereAMatchYet + 1;
+        return {
+          currentCount: isThereAMatchYet.currentCount + 1,
+          isThereAWinYet: false,
+        };
       }
 
-      return 0;
+      return { currentCount: 0, isThereAWinYet: false };
     },
-    0
-  ) === true;
+    { currentCount: 0, isThereAWinYet: false }
+  );
+
+  return checksForWin.isThereAWinYet;
+};
+
 export const findMostBottomRowIndex = (
   gameState: string[][],
   columnNumber: number
@@ -91,13 +103,10 @@ export const newInstanceOfArrayWithPieceAdded = (
   rowArray: string[],
   column: number,
   turn: string
-) => {
-  return [...rowArray.slice(0, column), turn, ...rowArray.slice(column + 1)];
-};
+) => [...rowArray.slice(0, column), turn, ...rowArray.slice(column + 1)];
 
-export const toggleTurn = (previousTurn: string) => {
-  return previousTurn === "red" ? "yellow" : "red";
-};
+export const toggleTurn = (previousTurn: string) =>
+  previousTurn === "red" ? "yellow" : "red";
 
 export const checkWins = (
   entireGameState: string[][],
@@ -115,6 +124,7 @@ export const checkWins = (
     rowNumber,
     columnNumber
   );
+
   const rowWinRed = checksForConsecutivePieces(
     entireGameState[rowNumber],
     "red",
